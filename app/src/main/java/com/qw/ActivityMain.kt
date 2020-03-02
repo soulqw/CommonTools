@@ -27,6 +27,8 @@ class ActivityMain : AppCompatActivity() {
         SharedPreferencesHelper.MY_NUMBER = 20
 
         Toast.makeText(applicationContext, "value:${SharedPreferencesHelper.MY_NUMBER}", Toast.LENGTH_SHORT).show()
+
+
     }
 
 }
