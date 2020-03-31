@@ -34,7 +34,48 @@ object SharedPreferencesHelper {
             }
 
             override fun setValue(thisRef: SharedPreferencesHelper, property: KProperty<*>, value: Int) {
-                thisRef.preferences.edit().putInt(property.name, value).commit()
+                thisRef.preferences.edit().putInt(property.name, value).apply()
+            }
+        }
+
+        fun long(defaultValue: Long = 0) = object : ReadWriteProperty<SharedPreferencesHelper, Long> {
+            override fun getValue(thisRef: SharedPreferencesHelper, property: KProperty<*>): Long {
+                return thisRef.preferences.getLong(property.name, defaultValue)
+            }
+
+            override fun setValue(thisRef: SharedPreferencesHelper, property: KProperty<*>, value: Long) {
+                thisRef.preferences.edit().putLong(property.name, value).apply()
+            }
+        }
+
+
+        fun float(defaultValue: Float = 0f) = object : ReadWriteProperty<SharedPreferencesHelper, Float> {
+            override fun getValue(thisRef: SharedPreferencesHelper, property: KProperty<*>): Float {
+                return thisRef.preferences.getFloat(property.name, defaultValue)
+            }
+
+            override fun setValue(thisRef: SharedPreferencesHelper, property: KProperty<*>, value: Float) {
+                thisRef.preferences.edit().putFloat(property.name, value).apply()
+            }
+        }
+
+        fun boolean(defaultValue: Boolean = false) = object : ReadWriteProperty<SharedPreferencesHelper, Boolean> {
+            override fun getValue(thisRef: SharedPreferencesHelper, property: KProperty<*>): Boolean {
+                return thisRef.preferences.getBoolean(property.name, defaultValue)
+            }
+
+            override fun setValue(thisRef: SharedPreferencesHelper, property: KProperty<*>, value: Boolean) {
+                thisRef.preferences.edit().putBoolean(property.name, value).apply()
+            }
+        }
+
+        fun string(defaultValue: String = "") = object : ReadWriteProperty<SharedPreferencesHelper, String> {
+            override fun getValue(thisRef: SharedPreferencesHelper, property: KProperty<*>): String {
+                return thisRef.preferences.getString(property.name, defaultValue)!!
+            }
+
+            override fun setValue(thisRef: SharedPreferencesHelper, property: KProperty<*>, value: String) {
+                thisRef.preferences.edit().putString(property.name, value).apply()
             }
         }
     }
