@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':soultools'
 rootProject.name='Tools'
