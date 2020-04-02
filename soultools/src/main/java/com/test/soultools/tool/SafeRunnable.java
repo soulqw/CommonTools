@@ -1,4 +1,4 @@
-package com.qw.tools;
+package com.test.soultools.tool;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;

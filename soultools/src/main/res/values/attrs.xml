@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="l_orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="debugDraw" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout_LayoutParams">
+        <attr name="layout_newLine" format="boolean" />
+        <attr name="layout_horizontalSpacing" format="dimension" />
+        <attr name="layout_verticalSpacing" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ShadowView">
+        <attr name="ShadowDefaultColor" format="color" />
+        <attr name="ShadowPressedColor" format="color" />
+        <attr name="ShadowSizeStart" format="dimension" />
+        <attr name="ShadowSizeEnd" format="dimension" />
+        <attr name="ShadowSizeTop" format="dimension" />
+        <attr name="ShadowSizeBottom" format="dimension" />
+        <attr name="ShadowCornerRadius" format="dimension" />
+    </declare-styleable>
+
+</resources>

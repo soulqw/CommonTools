@@ -1,4 +1,4 @@
-package com.qw.tools;
+package com.test.soultools.tool;
 
 import android.content.Context;
 import android.util.AttributeSet;

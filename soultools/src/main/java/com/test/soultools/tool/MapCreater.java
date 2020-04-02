@@ -3,7 +3,7 @@
  * ChainMap.java
  */
 
-package com.qw.tools;
+package com.test.soultools.tool;
 
 import android.os.Build;
 import android.util.ArrayMap;

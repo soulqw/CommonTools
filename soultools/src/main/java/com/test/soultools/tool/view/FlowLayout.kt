@@ -5,7 +5,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import com.qw.tools.R
+import com.test.soultools.R
 
 
 class FlowLayout : ViewGroup {
