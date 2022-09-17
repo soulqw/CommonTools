@@ -1,5 +1,6 @@
 package com.qw;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,18 +26,23 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        buttonTest = findViewById(R.id.btn_hook1);
+        findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivityMain.this, ActivitySecond.class));
+            }
+        });
+        buttonTest = findViewById(R.id.btn1);
         buttonTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TLog.d("qw","123");
+                TLog.d("qw", "This is An Log in java:",ActivityMain.this);
                 Toast.makeText(ActivityMain.this, "", Toast.LENGTH_SHORT).show();
             }
         });
 
 
     }
-
 
 
 }

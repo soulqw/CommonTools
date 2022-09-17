@@ -8,13 +8,7 @@
         android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOG IN JAVA" />
-
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TO kotlin" />
+        android:text="LOG IN KT" />
 
 
 </LinearLayout>

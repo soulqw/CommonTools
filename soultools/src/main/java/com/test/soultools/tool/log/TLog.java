@@ -8,7 +8,7 @@ public class TLog {
     private static final String NULL_TIPS = "Log with null object";
     private static final String PARAM = "Param";
     private static final String NULL = "null";
-    private static final String SUFFIX = ".java";
+
     private static final int V = 0x1;
     private static final int D = 0x2;
     private static final int I = 0x3;
@@ -18,32 +18,16 @@ public class TLog {
 
     private static final int STACK_TRACE_INDEX_5 = 5;
 
-    public static void d(Object msg) {
-        printLog(D, null, msg);
-    }
-
     public static void d(String tag, Object... objects) {
         printLog(D, tag, objects);
-    }
-
-    public static void i(Object msg) {
-        printLog(I, null, msg);
     }
 
     public static void i(String tag, Object... objects) {
         printLog(I, tag, objects);
     }
 
-    public static void w(Object msg) {
-        printLog(W, null, msg);
-    }
-
     public static void w(String tag, Object... objects) {
         printLog(W, tag, objects);
-    }
-
-    public static void e(Object msg) {
-        printLog(E, null, msg);
     }
 
     public static void e(String tag, Object... objects) {
@@ -63,14 +47,15 @@ public class TLog {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 
         StackTraceElement targetElement = stackTrace[stackTraceIndex];
+        String suffix = getSuffix(targetElement);
         String className = targetElement.getClassName();
         String[] classNameInfo = className.split("\\.");
         if (classNameInfo.length > 0) {
-            className = classNameInfo[classNameInfo.length - 1] + SUFFIX;
+            className = classNameInfo[classNameInfo.length - 1] + suffix;
         }
 
         if (className.contains("$")) {
-            className = className.split("\\$")[0] + SUFFIX;
+            className = className.split("\\$")[0] + suffix;
         }
 
         String methodName = targetElement.getMethodName();
@@ -82,9 +67,17 @@ public class TLog {
 
         String tag = (tagStr == null ? className : tagStr);
         String msg = (objects == null) ? NULL_TIPS : getObjectsString(objects);
-        String headString = "[ (" + className + ":" + lineNumber + ")#" + methodName + " ] ";
+        String headString = "(" + className + ":" + lineNumber + ")#" + methodName;
 
         return new String[]{tag, msg, headString};
+    }
+
+    private static String getSuffix(StackTraceElement targetElement) {
+        if (targetElement.getFileName().contains("java")) {
+            return ".java";
+        } else {
+            return ".kt";
+        }
     }
 
     private static String getObjectsString(Object... objects) {
@@ -109,7 +102,7 @@ public class TLog {
         }
     }
 
-    public static void printDefault(int type, String tag, String msg) {
+    private static void printDefault(int type, String tag, String msg) {
 
         int index = 0;
         int length = msg.length();
