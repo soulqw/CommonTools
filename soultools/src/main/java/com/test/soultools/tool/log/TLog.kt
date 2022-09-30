@@ -1,7 +1,8 @@
 package com.test.soultools.tool.log
 
 import android.util.Log
-import java.lang.StringBuilder
+import java.io.PrintWriter
+import java.io.StringWriter
 
 object TLog {
     private const val MAX_LENGTH = 4000
@@ -46,8 +47,37 @@ object TLog {
         printLogImp(E, tag, *objects as Array<out Any>)
     }
 
+    @JvmStatic
+    fun printTrace() {
+        printStackTrace()
+    }
+
+    private fun printStackTrace() {
+        val tr = Throwable()
+        val sw = StringWriter()
+        val pw = PrintWriter(sw)
+        tr.printStackTrace(pw)
+        pw.flush()
+        val message = sw.toString()
+        val traceString = message.split("\\n\\t").toTypedArray()
+        val sb = StringBuilder()
+        sb.append("\n")
+        for (trace in traceString) {
+            sb.append(trace).append("\n")
+        }
+        val contents: Array<String> = wrapperLogContent(
+            4,
+            null,
+            sb.toString()
+        )
+        val tag = contents[0]
+        val msg = contents[1]
+        val headString = contents[2]
+        printDefault(D, tag, headString + msg)
+    }
+
     private fun printLogImp(type: Int, tagStr: String, vararg objects: Any) {
-        val contents = wrapperLogContent(tagStr, *objects)
+        val contents = wrapperLogContent(5,tagStr, *objects)
         val tag = contents[0]
         val msg = contents[1]
         val headString = contents[2]
@@ -55,12 +85,12 @@ object TLog {
     }
 
     private fun wrapperLogContent(
+        lineIndex:Int = 5,
         tagStr: String?,
         vararg objects: Any
     ): Array<String> {
         val stackTrace = Thread.currentThread().stackTrace
-        val callLineIndex = 5
-        val targetElement = stackTrace[callLineIndex]
+        val targetElement = stackTrace[lineIndex]
         val fileName = targetElement.fileName
         val methodName = targetElement.methodName
         var lineNumber = targetElement.lineNumber

@@ -13,6 +13,7 @@ class ActivitySecond:AppCompatActivity() {
         setContentView(R.layout.activity_second)
         findViewById<View>(R.id.btn1).setOnClickListener {
             TLog.d("qw", "This is An Log in kt:")
+            TLog.printTrace()
         }
     }
 }
