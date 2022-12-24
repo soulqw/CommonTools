@@ -59,10 +59,17 @@ object TLog {
         tr.printStackTrace(pw)
         pw.flush()
         val message = sw.toString()
-        val traceString = message.split("\\n\\t").toTypedArray()
+        val traceString = message.split("\n\t").toTypedArray()
         val sb = StringBuilder()
         sb.append("\n")
+        val packageName = TLog.javaClass.`package`?.name ?: ""
         for (trace in traceString) {
+            if (trace.contains("Throwable")) {
+                continue
+            }
+            if (trace.contains(packageName)) {
+                continue
+            }
             sb.append(trace).append("\n")
         }
         val contents: Array<String> = wrapperLogContent(
@@ -77,7 +84,7 @@ object TLog {
     }
 
     private fun printLogImp(type: Int, tagStr: String, vararg objects: Any) {
-        val contents = wrapperLogContent(5,tagStr, *objects)
+        val contents = wrapperLogContent(5, tagStr, *objects)
         val tag = contents[0]
         val msg = contents[1]
         val headString = contents[2]
@@ -85,7 +92,7 @@ object TLog {
     }
 
     private fun wrapperLogContent(
-        lineIndex:Int = 5,
+        lineIndex: Int = 5,
         tagStr: String?,
         vararg objects: Any
     ): Array<String> {
@@ -99,7 +106,7 @@ object TLog {
         }
         val tag = tagStr ?: fileName
         val msg = getObjectsString(*objects)
-        val headString = "($fileName:$lineNumber)#$methodName "
+        val headString = "($fileName:$lineNumber)->$methodName "
         return arrayOf(tag, msg, headString)
     }
 
