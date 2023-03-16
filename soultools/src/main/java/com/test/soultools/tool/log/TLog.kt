@@ -1,6 +1,9 @@
 package com.test.soultools.tool.log
 
 import android.util.Log
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -15,6 +18,9 @@ object TLog {
     private const val E = 0x5
     private const val A = 0x6
 
+    val LINE_SEPARATOR = System.getProperty("line.separator").toString()
+
+    const val JSON_INDENT = 4
     /**
      * like log d
      */
@@ -156,6 +162,27 @@ object TLog {
             W -> Log.w(tag, sub)
             E -> Log.e(tag, sub)
             A -> Log.wtf(tag, sub)
+        }
+    }
+
+    fun printJson(tag: String?, msg: String, headString: String) {
+        var message: String = try {
+            if (msg.startsWith("{")) {
+                val jsonObject = JSONObject(msg)
+                jsonObject.toString(JSON_INDENT)
+            } else if (msg.startsWith("[")) {
+                val jsonArray = JSONArray(msg)
+                jsonArray.toString(JSON_INDENT)
+            } else {
+                msg
+            }
+        } catch (e: JSONException) {
+            msg
+        }
+        message = headString + LINE_SEPARATOR + message
+        val lines: Array<String> = message.split(LINE_SEPARATOR).toTypedArray()
+        for (line in lines) {
+            Log.d(tag, "║ $line")
         }
     }
 
