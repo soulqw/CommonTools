@@ -8,13 +8,12 @@
         android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="to kotlin c" />
+        android:text="start work" />
 
-    <Button
-        android:id="@+id/btn2"
+    <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TO kotlin" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
